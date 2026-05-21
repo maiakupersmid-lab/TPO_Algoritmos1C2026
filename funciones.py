@@ -20,9 +20,9 @@ def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
             cod = int(input("El codigo ya existe o es invalido, reingrese: "))
         
         # Empiezo a pedir los datos de carga y validarlos segun corresponda
-        nom = input("Ingrese nombre de la pelicula o cancion a registrar: ").capitalize()       
+        nom = input("Ingrese nombre de la pelicula o cancion a registrar: ")       
         while nom == "":
-            nom = input("No se puede ingresar un nombre vacio, reingrese: ").capitalize()
+            nom = input("No se puede ingresar un nombre vacio, reingrese: ")
         
         tipo = input("Ingrese tipo (pelicula/cancion): ").lower()
         while tipo != "pelicula" and tipo != "cancion":
@@ -30,18 +30,18 @@ def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
         
         if tipo == "pelicula":
             print("Generos: Terror - Comedia - Accion - Fantasia - Drama - Ciencia Ficcion - Romance") 
-            genero = input("Ingrese genero: ") .capitalize()
+            genero = input("Ingrese genero: ")
             while genero != "Drama" and genero != "Comedia" and genero != "Accion" and genero != "Fantasia" and genero != "Terror" and genero != "Ciencia Ficcion" and genero != "Romance":
-                genero = input("No se hallo el genero ingresado, reingrese: ").capitalize()
+                genero = input("No se hallo el genero ingresado, reingrese: ")
 
             clasificacion = input("Ingrese clasificacion (ATP/+13/+16/+18): ") 
             while clasificacion != "ATP" and clasificacion != "+13" and clasificacion != "+16" and clasificacion != "+18":
                 clasificacion = input("Clasificacion invalida, reingrese: ")
         else:
             print("Generos: Rap - Pop - Rock - Cumbia - Reggaeton - Hip Hop")
-            genero = input("Ingrese genero: ").capitalize()
+            genero = input("Ingrese genero: ")
             while genero != "Rap" and genero != "Pop" and genero != "Rock" and genero != "Cumbia" and genero != "Reggaeton" and genero != "Hip Hop":
-                genero = input("No se hallo el genero ingresado, reingrese: ").capitalize()
+                genero = input("No se hallo el genero ingresado, reingrese: ")
             
             clasificacion = "ATP"
         
@@ -51,9 +51,9 @@ def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
         
         # Agrego todos los datos que ingresaron a la lista que corresponda
         codigos.append(cod)
-        titulos.append(nom).capitalize()
-        tipos.append(tipo).capitalize()
-        generos.append(genero).capitalize()
+        titulos.append(nom)
+        tipos.append(tipo)
+        generos.append(genero)
         anios.append(anio)
         clasificaciones.append(clasificacion)
         # Mensaje de confimacion
@@ -75,7 +75,7 @@ def modificarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
         nuevoTitulo = input("Nuevo titulo: ")
         while nuevoTitulo == "":
             nuevoTitulo = input("No se puede ingresar un nombre vacio, reingrese: ")
-        titulos[pos] = nuevoTitulo.capitalize()
+        titulos[pos] = nuevoTitulo
         
         nuevoTipo = input("Ingrese tipo (pelicula/cancion): ").lower()
         while nuevoTipo != "pelicula" and nuevoTipo != "cancion":
@@ -98,7 +98,7 @@ def modificarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
                 nuevoGenero = input("No se hallo el genero ingresado, reingrese: ")
             
             nuevaClasificacion = "ATP"
-        generos[pos] = nuevoGenero.capitalize()
+        generos[pos] = nuevoGenero
         clasificaciones[pos] = nuevaClasificacion
 
         nuevoAnio = int(input("Nuevo año: "))
