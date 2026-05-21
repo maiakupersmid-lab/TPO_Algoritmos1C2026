@@ -1,5 +1,5 @@
 def buscarCodigo(codigos, buscar):
-    # Buscar la posicion del codigo en la lista, si no lo encuentra devuelve -1
+    # Funcion que me permite buscar la posicion del codigo en la lista, si no lo encuentra devuelve -1
     pos = -1
     i = 0
     while i < len(codigos) and pos == -1:
@@ -9,15 +9,17 @@ def buscarCodigo(codigos, buscar):
     return pos
 
 def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):  
+    # Pido el codigo a registrar hasta que el usuario ingrese -1 para finalizar
     cod=int(input("Ingrese codigo a registrar o -1 para finalizar: "))
     
-    # Verificar si quiere salir
+    # Verificar si quiere salir, -1
     while cod != -1:
         
         # Verificar que el codigo no exista y sea positivo
         while cod <= 0 or buscarCodigo(codigos, cod) != -1:
             cod = int(input("El codigo ya existe o es invalido, reingrese: "))
         
+        # Empiezo a pedir los datos de carga y validarlos segun corresponda
         nom = input("Ingrese nombre de la pelicula o cancion a registrar: ").capitalize()       
         while nom == "":
             nom = input("No se puede ingresar un nombre vacio, reingrese: ").capitalize()
@@ -47,22 +49,28 @@ def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
         while anio <= 1900 or anio > 2026:
             anio = int(input("Año invalido, reingrese año: "))            
         
+        # Agrego todos los datos que ingresaron a la lista que corresponda
         codigos.append(cod)
         titulos.append(nom).capitalize()
         tipos.append(tipo).capitalize()
         generos.append(genero).capitalize()
         anios.append(anio)
         clasificaciones.append(clasificacion)
+        # Mensaje de confimacion
         print("Contenido agregado correctamente")
+
+        # Vuelvo a pedir un nuevo codigo a registrar o -1 para finalizar
         cod=int(input("Ingrese nuevo codigo a registrar o -1 para finalizar: "))
 
 def modificarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
+    # Pido el codigo que desea modificar y busco la posicion en la que se encuentra para poder modificar el resto de los datos
     buscar = int(input("Ingrese codigo a modificar: "))
     pos = buscarCodigo(codigos, buscar)
 
     if pos == -1:
         print("No existe contenido con ese codigo")
     else:
+        # Muestro el contenido encontrado y pido los nuevos datos a guardar validandolos segun corresponda
         print("Contenido encontrado:" , titulos[pos])
         nuevoTitulo = input("Nuevo titulo: ")
         while nuevoTitulo == "":
@@ -97,18 +105,19 @@ def modificarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
         while nuevoAnio <= 1900 or nuevoAnio > 2026:
             nuevoAnio = int(input("Año invalido, reingrese año: "))
         anios[pos] = nuevoAnio
-
+        # Mensaje de confirmacion
         print("Contenido modificado correctamente")
 
     
 def bajaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     buscar = int(input("Ingrese codigo a eliminar: "))
     pos = buscarCodigo(codigos, buscar)
-    
+    # Busco el codigo que quiere eliminar y su posicion en la lista 
     if pos == -1:
         print("No se encontro el contenido")
     else:
         print("Titulo:", titulos[pos])
+        # Pido confirmacion de que quiere eliminar el contenido
         check = input("Confirma que quiere eliminar este contenido? SI/NO: ").upper()
         while check != "SI" and check != "NO":
             check = input("Lo ingresado no es valido, reingrese SI o NO: ").upper()
