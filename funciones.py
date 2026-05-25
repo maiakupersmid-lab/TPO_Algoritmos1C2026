@@ -8,6 +8,19 @@ def buscarCodigo(codigos, buscar):
         i += 1
     return pos
 
+generosPeliculas = ["Drama", "Comedia", "Accion", 
+                    "Fantasia", "Terror", "Ciencia Ficcion", "Romance"
+]
+
+generosCanciones = [ "Rap", "Pop", "Rock","Cumbia","Reggaeton", "Hip Hop"]
+
+clasificacionesPeliculas = [
+    "ATP",
+    "+13",
+    "+16",
+    "+18"
+]
+
 def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):  
     # Pido el codigo a registrar hasta que el usuario ingrese -1 para finalizar
     cod=int(input("Ingrese codigo a registrar o -1 para finalizar: "))
@@ -29,19 +42,19 @@ def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
             tipo = input("Tipo ingresado no valido, reingrese: ").lower()
         
         if tipo == "pelicula":
-            print("Generos: Terror - Comedia - Accion - Fantasia - Drama - Ciencia Ficcion - Romance") 
+            print("Generos de película: ", generosPeliculas) 
             genero = input("Ingrese genero: ")
-            while genero != "Drama" and genero != "Comedia" and genero != "Accion" and genero != "Fantasia" and genero != "Terror" and genero != "Ciencia Ficcion" and genero != "Romance":
+            while genero not in generosPeliculas:
                 genero = input("No se hallo el genero ingresado, reingrese: ")
 
             clasificacion = input("Ingrese clasificacion (ATP/+13/+16/+18): ") 
-            while clasificacion != "ATP" and clasificacion != "+13" and clasificacion != "+16" and clasificacion != "+18":
+            while clasificacion not in clasificacionesPeliculas:
                 clasificacion = input("Clasificacion invalida, reingrese: ")
         else:
-            print("Generos: Rap - Pop - Rock - Cumbia - Reggaeton - Hip Hop")
+            print("Generos de música: Rap - Pop - Rock - Cumbia - Reggaeton - Hip Hop")
             genero = input("Ingrese genero: ")
-            while genero != "Rap" and genero != "Pop" and genero != "Rock" and genero != "Cumbia" and genero != "Reggaeton" and genero != "Hip Hop":
-                genero = input("No se hallo el genero ingresado, reingrese: ")
+            while genero not in generosCanciones:
+                genero = input("No se hallo el genero de música ingresado, reingrese: ")
             
             clasificacion = "ATP"
         
