@@ -26,12 +26,12 @@ def menu():
 
 def main():
     # Programa principal
-    codigos = []
-    titulos = []
-    tipos = []
-    generos = []
-    anios = []
-    clasificaciones = []
+    codigos = [1, 2, 3, 4, 5, 6]
+    titulos = ["Titanic", "Shrek", "Despacito", "Avatar", "Bohemian Rhapsody", "Toy Story"]
+    tipos = ["pelicula", "cancion", "pelicula", "cancion", "cancion", "pelicula"]
+    generos = ["DRAMA", "COMEDIA", "ACCION", "FANTASIA", "TERROR", "CIENCIA FICCION", "ROMANCE"]
+    anios = [1987, 2018, 1997, 2001, 1975, 1995]
+    clasificaciones = ["ATP", "+13", "+16", "+18", "ATP", "ATP"]
     
     opcion = menu()
     while opcion != 8:
@@ -51,6 +51,10 @@ def main():
             print("Listado general")
             # Invoco a la funcion del archivo funciones.py para listar todos los contenidos
             funciones.listarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
+        elif opcion == 5:
+            print("Busqueda por codigo")
+            # Invoco a la funcion del archivo funciones.py para mostrar el contenido por codigo
+            funciones.buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
         opcion = menu()
     # El usuario eligio salir, muestro mensaje de despedida
     print("Gracias por usar el programa")

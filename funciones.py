@@ -152,3 +152,17 @@ def listarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     print("Codigo | Titulo | Tipo | Genero | Año | Clasificacion")
     for i in range(len(codigos)):
         print(codigos[i], "|", titulos[i], "|", tipos[i], "|", generos[i], "|", anios[i], "|", clasificaciones[i])
+
+def buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
+    buscar = int(input("Ingrese codigo a buscar: "))
+    pos = buscarCodigo(codigos, buscar)
+    if pos == -1:
+        print("No se encontro contenido con ese codigo")
+    else:
+        print("Contenido encontrado:")
+        print("Codigo:", codigos[pos])
+        print("Titulo:", titulos[pos])
+        print("Tipo:", tipos[pos])
+        print("Genero:", generos[pos])
+        print("Año:", anios[pos])
+        print("Clasificacion:", clasificaciones[pos])
