@@ -55,6 +55,8 @@ def main():
             print("Busqueda por codigo")
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por codigo
             funciones.buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
+        elif opcion == 6:
+            funciones.reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones)
         opcion = menu()
     # El usuario eligio salir, muestro mensaje de despedida
     print("Gracias por usar el programa")
