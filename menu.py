@@ -8,15 +8,18 @@ def opciones_menu():
     print("2. Modificar contenido existente")
     print("3. Dar de baja contenido")
     print("4. Mostrar listado general de contenido")
-    print("5. Salir")
+    print("5. Buscar contenido por codigo")
+    print("6. Mostrar reporte ordenado por año de lanzamiento")
+    print("7. Mostrar reporte filtrado por tipo de conenido")
+    print("8. Salir")
 
 def menu():
     # Funcion que permite seleccionar una opcion del menu
     opciones_menu()
     opcion = int(input("Opción: "))
     # Validar que la opcion elegida este dentro de los rangos permitidos
-    while opcion < 1 or opcion > 5:
-        print("Error, la opcion elegida debe estar entre 1 y 5")
+    while opcion < 1 or opcion > 8:
+        print("Error, la opcion elegida debe estar entre 1 y 8")
         opciones_menu()
         opcion = int(input("Seleccione una opcion"))
     return opcion
@@ -25,13 +28,13 @@ def main():
     # Programa principal
     codigos = []
     titulos = []
-    tipos = [ "pelicula", "cancion"]
+    tipos = ["pelicula", "cancion"]
     generos = ["Drama", "Comedia", "Accion", "Fantasia", "Terror", "Ciencia Ficcion", "Romance"]
     anios = []
     clasificaciones = ["ATP", "+13", "+16", "+18"]
     
     opcion = menu()
-    while opcion != 5:
+    while opcion != 8:
         if opcion == 1:
             print("Dar de alta")
             # Invoco a la funcion del archivo funciones.py para dar de alta un nuevo contenido

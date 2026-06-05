@@ -8,9 +8,7 @@ def buscarCodigo(codigos, buscar):
         i += 1
     return pos
 
-generosPeliculas = ["Drama", "Comedia", "Accion", 
-                    "Fantasia", "Terror", "Ciencia Ficcion", "Romance"
-]
+generosPeliculas = ["Drama", "Comedia", "Accion", "Fantasia", "Terror", "Ciencia Ficcion", "Romance"]
 
 generosCanciones = [ "Rap", "Pop", "Rock","Cumbia","Reggaeton", "Hip Hop"]
 
