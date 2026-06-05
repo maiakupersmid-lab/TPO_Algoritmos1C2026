@@ -81,9 +81,9 @@ def modificarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
             nuevoTitulo = input("No se puede ingresar un nombre vacio, reingrese: ")
         titulos[pos] = nuevoTitulo
         
-        nuevoTipo = input("Ingrese tipo (pelicula/cancion): ").lower()
+        nuevoTipo = input("Ingrese tipo (pelicula/cancion): ").upper()
         while nuevoTipo != "pelicula" and nuevoTipo != "cancion":
-            nuevoTipo = input("Tipo ingresado no valido, reingrese: ").lower()
+            nuevoTipo = input("Tipo ingresado no valido, reingrese: ").upper()
         tipos[pos] = nuevoTipo
 
         if nuevoTipo == "pelicula":
