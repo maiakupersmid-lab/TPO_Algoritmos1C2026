@@ -28,10 +28,10 @@ def main():
     # Programa principal
     codigos = []
     titulos = []
-    tipos = ["pelicula", "cancion"]
-    generos = ["Drama", "Comedia", "Accion", "Fantasia", "Terror", "Ciencia Ficcion", "Romance"]
+    tipos = []
+    generos = []
     anios = []
-    clasificaciones = ["ATP", "+13", "+16", "+18"]
+    clasificaciones = []
     
     opcion = menu()
     while opcion != 8:
