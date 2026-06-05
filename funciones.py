@@ -8,16 +8,9 @@ def buscarCodigo(codigos, buscar):
         i += 1
     return pos
 
-generosPeliculas = ["Drama", "Comedia", "Accion", "Fantasia", "Terror", "Ciencia Ficcion", "Romance"]
-
-generosCanciones = [ "Rap", "Pop", "Rock","Cumbia","Reggaeton", "Hip Hop"]
-
-clasificacionesPeliculas = [
-    "ATP",
-    "+13",
-    "+16",
-    "+18"
-]
+generosPeliculas = ["DRAMA", "COMEDIA", "ACCION", "FANTASIA", "TERROR", "CIENCIA FICCION", "ROMANCE"]
+generosCanciones = ["RAP", "POP", "ROCK","CUMBIA","REGGAETON", "HIP HOP"]
+clasificacionesPeliculas = ["ATP", "+13", "+16", "+18"]
 
 def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):  
     # Pido el codigo a registrar hasta que el usuario ingrese -1 para finalizar
