@@ -57,6 +57,9 @@ def main():
             funciones.buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
         elif opcion == 6:
             funciones.reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones)
+        elif opcion == 7:
+            print("Reporte filtrado por tipo")
+            # funciones.reportePorTipo(codigos, titulos, tipos, generos, anios, clasificaciones)
         opcion = menu()
     # El usuario eligio salir, muestro mensaje de despedida
     print("Gracias por usar el programa")

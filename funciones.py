@@ -195,7 +195,6 @@ def reportePorAnio (codigos, titulos, tipos, generos, anios, clasificaciones):
                 clasificaciones[i] = clasificaciones[j]
                 clasificaciones[j] = aux
 
-
     print("REPORTE ORDENADO POR AÑO DE LANZAMIENTO")
             
     for i in range(len(codigos)):
@@ -206,4 +205,4 @@ def reportePorAnio (codigos, titulos, tipos, generos, anios, clasificaciones):
             generos[i],
             anios[i],
             clasificaciones[i]
-        )      
+        )
