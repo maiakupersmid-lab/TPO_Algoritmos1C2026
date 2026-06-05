@@ -153,16 +153,45 @@ def listarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     for i in range(len(codigos)):
         print(codigos[i], "|", titulos[i], "|", tipos[i], "|", generos[i], "|", anios[i], "|", clasificaciones[i])
 
-def buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
-    buscar = int(input("Ingrese codigo a buscar: "))
-    pos = buscarCodigo(codigos, buscar)
-    if pos == -1:
-        print("No se encontro contenido con ese codigo")
-    else:
-        print("Contenido encontrado:")
-        print("Codigo:", codigos[pos])
-        print("Titulo:", titulos[pos])
-        print("Tipo:", tipos[pos])
-        print("Genero:", generos[pos])
-        print("Año:", anios[pos])
-        print("Clasificacion:", clasificaciones[pos])
+def reportePorAnio (codigos, titulos, tipos, generos, anios, clasificaciones):
+    for i in range (len(anios) -1 ):
+        for j in range (i+1, len(anios)):
+            if anios[i] > anios[j]:
+                aux = anios[i]
+                anios[i] = anios[j]
+                anios[j] = aux
+
+                aux = codigos[i]
+                codigos[i] = codigos[j]
+                codigos[j] = aux
+
+                aux = titulos[i]
+                titulos[i] = titulos[j]
+                titulos[j] = aux
+
+                aux = tipos[i]
+                tipos[i] = tipos[j]
+                tipos[j] = aux
+
+                aux = generos[i]
+                generos[i] = generos[j]
+                generos[j] = aux
+
+                aux = clasificaciones[i]
+                clasificaciones[i] = clasificaciones[j]
+                clasificaciones[j] = aux
+
+
+    print("REPORTE ORDENADO POR AÑO DE LANZAMIENTO")
+            
+    for i in range(len(codigos)):
+        print(
+            codigos[i],
+            titulos[i],
+            tipos[i],
+            generos[i],
+            anios[i],
+            clasificaciones[i]
+        )      
+
+                
