@@ -140,3 +140,5 @@ def listarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     print("Listado general de contenido:")    
     for i in range(len(codigos)):
         print(codigos[i], titulos[i], tipos[i], generos[i], anios[i], clasificaciones[i])
+
+###def reportePorAnio (codigos, titulos, tipos, generos, anios, clasificaciones):###
