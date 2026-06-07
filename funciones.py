@@ -18,8 +18,65 @@ def buscarElemento(lista, buscado):
         i += 1
     return pos
 
-generosPeliculas = ["DRAMA", "COMEDIA", "ACCION", "FANTASIA", "TERROR", "CIENCIA FICCION", "ROMANCE"]
-generosCanciones = ["RAP", "POP", "ROCK", "CUMBIA", "REGGAETON", "HIP HOP"]
+def pedirTitulo(mensaje):
+    # Funcion reutilizable para pedir y validar el titulo del contenido
+    titulo = input(mensaje)
+    while titulo == "":
+        titulo = input("No se puede ingresar un nombre vacio, reingrese: ")
+    return titulo
+
+def pedirTipo():
+    # Funcion reutilizable para pedir y validar el tipo de contenido
+    tipo = input("Ingrese tipo (pelicula/cancion): ").lower()
+    while tipo != "pelicula" and tipo != "cancion":
+        tipo = input("Tipo ingresado no valido, reingrese: ").lower()
+    return tipo
+
+def pedirGeneroYClasificacion(tipo):
+    # Funcion reutilizable para pedir y validar el genero y clasificacion segun el tipo de contenido
+    if tipo == "pelicula":
+        print("Generos de pelicula:", generosPeliculas)
+        genero = input("Ingrese genero: ").lower()
+        while buscarElemento(generosPeliculas, genero) == -1:
+            genero = input("No se hallo el genero ingresado, reingrese: ").lower()
+
+        clasificacion = input("Ingrese clasificacion (ATP/+13/+16/+18): ").upper()
+        while buscarElemento(clasificacionesPeliculas, clasificacion) == -1:
+            clasificacion = input("Clasificacion invalida, reingrese: ").upper()
+    else:
+        print("Generos de musica:", generosCanciones)
+        genero = input("Ingrese genero: ").lower()
+        while buscarElemento(generosCanciones, genero) == -1:
+            genero = input("No se hallo el genero ingresado, reingrese: ").lower()
+        clasificacion = "ATP"
+
+    return genero, clasificacion
+
+def pedirAnio():
+    # Funcion reutilizable para pedir y validar el año de lanzamiento
+    anio = int(input("Ingrese año: "))
+    while anio <= 1900 or anio > 2026:
+        anio = int(input("Año invalido, reingrese año: "))
+    return anio
+
+def intercambiar(lista, i, j):
+    # Funcion reutilizable para intercambiar las listas
+    aux = lista[i]
+    lista[i] = lista[j]
+    lista[j] = aux
+
+def mostrarContenido(codigo, titulo, tipo, genero, anio, clasificacion):
+    # Funcion reutilizable para mostrar el contenido en pantalla
+    print("------------------------------")
+    print("Codigo:", codigo)
+    print("Titulo:", titulo)
+    print("Tipo:", tipo)
+    print("Genero:", genero)
+    print("Año:", anio)
+    print("Clasificacion:", clasificacion)
+
+generosPeliculas = ["drama", "comedia", "accion", "fantasia", "terror", "ciencia ficcion", "romance"]
+generosCanciones = ["rap", "pop", "rock", "cumbia", "reggaeton", "hip hop"]
 clasificacionesPeliculas = ["ATP", "+13", "+16", "+18"]
 
 def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
@@ -31,33 +88,10 @@ def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
             cod = int(input("El codigo ya existe o es invalido, reingrese: "))
 
         # Empiezo a pedir los datos de carga y validarlos segun corresponda
-        nom = input("Ingrese nombre de la pelicula o cancion a registrar: ")
-        while nom == "":
-            nom = input("No se puede ingresar un nombre vacio, reingrese: ")
-
-        tipo = input("Ingrese tipo (pelicula/cancion): ").lower()
-        while tipo != "pelicula" and tipo != "cancion":
-            tipo = input("Tipo ingresado no valido, reingrese: ").lower()
-        if tipo == "pelicula":
-            print("Generos de pelicula:", generosPeliculas)
-            genero = input("Ingrese genero: ").upper()
-            while buscarElemento(generosPeliculas, genero) == -1:
-                genero = input("No se hallo el genero ingresado, reingrese: ").upper()
-
-            clasificacion = input("Ingrese clasificacion (ATP/+13/+16/+18): ").upper()
-            while buscarElemento(clasificacionesPeliculas, clasificacion) == -1:
-                clasificacion = input("Clasificacion invalida, reingrese: ").upper()
-        else:
-            print("Generos de musica:", generosCanciones)
-            genero = input("Ingrese genero: ").upper()
-            while buscarElemento(generosCanciones, genero) == -1:
-                genero = input("No se hallo el genero de musica ingresado, reingrese: ").upper()
-
-            clasificacion = "ATP"
-
-        anio = int(input("Ingrese año: "))
-        while anio <= 1900:
-            anio = int(input("Año invalido, reingrese año: "))
+        nom = pedirTitulo("Ingrese nombre de la pelicula o cancion a registrar: ")
+        tipo = pedirTipo()
+        genero, clasificacion = pedirGeneroYClasificacion(tipo)
+        anio = pedirAnio()
 
         # Agrego todos los datos que ingresaron a la lista que corresponda
         codigos.append(cod)
@@ -78,46 +112,18 @@ def modificarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
     if pos == -1:
         print("No existe contenido con ese codigo")
     else:
-        print("Codigo:", codigos[pos])
-        print("Titulo:", titulos[pos])
-        print("Tipo:", tipos[pos])
-        print("Genero:", generos[pos])
-        print("Año:", anios[pos])
-        print("Clasificacion:", clasificaciones[pos])
+        mostrarContenido(codigos[pos], titulos[pos], tipos[pos], generos[pos], anios[pos], clasificaciones[pos])
 
-        nuevoTitulo = input("Nuevo titulo: ")
-        while nuevoTitulo == "":
-            nuevoTitulo = input("No se puede ingresar un nombre vacio, reingrese: ")
-        titulos[pos] = nuevoTitulo
+        titulos[pos] = pedirTitulo("Nuevo titulo: ")
 
-        nuevoTipo = input("Ingrese tipo (pelicula/cancion): ").lower()
-        while nuevoTipo != "pelicula" and nuevoTipo != "cancion":
-            nuevoTipo = input("Tipo ingresado no valido, reingrese: ").upper()
+        nuevoTipo = pedirTipo()
         tipos[pos] = nuevoTipo
-        if nuevoTipo == "pelicula":
-            print("Generos de pelicula:", generosPeliculas)
-            nuevoGenero = input("Ingrese genero: ").upper()
-            while buscarElemento(generosPeliculas, nuevoGenero) == -1:
-                nuevoGenero = input("No se hallo el genero ingresado, reingrese: ").upper()
 
-            nuevaClasificacion = input("Ingrese clasificacion (ATP/+13/+16/+18): ").upper()
-            while buscarElemento(clasificacionesPeliculas, nuevaClasificacion) == -1:
-                nuevaClasificacion = input("Clasificacion invalida, reingrese: ").upper()
-        else:
-            print("Generos de musica:", generosCanciones)
-            nuevoGenero = input("Ingrese genero: ").upper()
-            while buscarElemento(generosCanciones, nuevoGenero) == -1:
-                nuevoGenero = input("No se hallo el genero ingresado, reingrese: ").upper()
-
-            nuevaClasificacion = "ATP"
-
+        nuevoGenero, nuevaClasificacion = pedirGeneroYClasificacion(nuevoTipo)
         generos[pos] = nuevoGenero
         clasificaciones[pos] = nuevaClasificacion
 
-        nuevoAnio = int(input("Nuevo año: "))
-        while nuevoAnio <= 1900:
-            nuevoAnio = int(input("Año invalido, reingrese año: "))
-        anios[pos] = nuevoAnio
+        anios[pos] = pedirAnio()
 
         print("Contenido modificado correctamente")
 
@@ -127,12 +133,7 @@ def bajaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     if pos == -1:
         print("No se encontro el contenido")
     else:
-        print("Codigo:", codigos[pos])
-        print("Titulo:", titulos[pos])
-        print("Tipo:", tipos[pos])
-        print("Genero:", generos[pos])
-        print("Año:", anios[pos])
-        print("Clasificacion:", clasificaciones[pos])
+        mostrarContenido(codigos[pos], titulos[pos], tipos[pos], generos[pos], anios[pos], clasificaciones[pos])
 
         check = input("Confirma que quiere eliminar este contenido? SI/NO: ").upper()
         while check != "SI" and check != "NO":
@@ -149,9 +150,8 @@ def bajaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
             print("Cancelado correctamente")
 
 def listarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
-    print("Codigo | Titulo | Tipo | Genero | Año | Clasificacion")
     for i in range(len(codigos)):
-        print(codigos[i], "|", titulos[i], "|", tipos[i], "|", generos[i], "|", anios[i], "|", clasificaciones[i])
+        mostrarContenido(codigos[i], titulos[i], tipos[i], generos[i], anios[i], clasificaciones[i])
 
 def buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     buscar = int(input("Ingrese codigo a buscar: "))
@@ -160,49 +160,83 @@ def buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
         print("No se encontro contenido con ese codigo")
     else:
         print("Contenido encontrado:")
-        print("Codigo:", codigos[pos])
-        print("Titulo:", titulos[pos])
-        print("Tipo:", tipos[pos])
-        print("Genero:", generos[pos])
-        print("Año:", anios[pos])
-        print("Clasificacion:", clasificaciones[pos])
+        mostrarContenido(codigos[pos], titulos[pos], tipos[pos], generos[pos], anios[pos], clasificaciones[pos])
 
-def reportePorAnio (codigos, titulos, tipos, generos, anios, clasificaciones):
-    for i in range (len(anios) -1 ):
-        for j in range (i+1, len(anios)):
-            if anios[i] > anios[j]:
-                aux = anios[i]
-                anios[i] = anios[j]
-                anios[j] = aux
+def reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones):
+    codigosOrd = codigos[:]
+    titulosOrd = titulos[:]
+    tiposOrd = tipos[:]
+    generosOrd = generos[:]
+    aniosOrd = anios[:]
+    clasificacionesOrd = clasificaciones[:]
 
-                aux = codigos[i]
-                codigos[i] = codigos[j]
-                codigos[j] = aux
-
-                aux = titulos[i]
-                titulos[i] = titulos[j]
-                titulos[j] = aux
-
-                aux = tipos[i]
-                tipos[i] = tipos[j]
-                tipos[j] = aux
-
-                aux = generos[i]
-                generos[i] = generos[j]
-                generos[j] = aux
-
-                aux = clasificaciones[i]
-                clasificaciones[i] = clasificaciones[j]
-                clasificaciones[j] = aux
+    for i in range(len(aniosOrd) - 1):
+        for j in range(i + 1, len(aniosOrd)):
+            if aniosOrd[i] > aniosOrd[j]:
+                intercambiar(aniosOrd, i, j)
+                intercambiar(codigosOrd, i, j)
+                intercambiar(titulosOrd, i, j)
+                intercambiar(tiposOrd, i, j)
+                intercambiar(generosOrd, i, j)
+                intercambiar(clasificacionesOrd, i, j)
 
     print("REPORTE ORDENADO POR AÑO DE LANZAMIENTO")
-            
+    for i in range(len(codigosOrd)):
+        mostrarContenido(codigosOrd[i], titulosOrd[i], tiposOrd[i], generosOrd[i], aniosOrd[i], clasificacionesOrd[i])
+
+def reportePorTipo(codigos, titulos, tipos, generos, anios, clasificaciones):
+    tipoBuscar = pedirTipo()
+    encontrados = 0
+    print("REPORTE FILTRADO POR TIPO")
     for i in range(len(codigos)):
-        print(
-            codigos[i],
-            titulos[i],
-            tipos[i],
-            generos[i],
-            anios[i],
-            clasificaciones[i]
-        )
+        if tipos[i] == tipoBuscar:
+            mostrarContenido(codigos[i], titulos[i], tipos[i], generos[i], anios[i], clasificaciones[i])
+            encontrados += 1
+    if encontrados == 0:
+        print("No se encontraron contenidos para el tipo seleccionado")
+
+def reportePorAnioDesc(codigos, titulos, tipos, generos, anios, clasificaciones):
+    codigosOrd = codigos[:]
+    titulosOrd = titulos[:]
+    tiposOrd = tipos[:]
+    generosOrd = generos[:]
+    aniosOrd = anios[:]
+    clasificacionesOrd = clasificaciones[:]
+
+    for i in range(len(aniosOrd) - 1):
+        for j in range(len(aniosOrd) - 1 - i):
+            if aniosOrd[j] < aniosOrd[j + 1]:
+                intercambiar(aniosOrd, j, j + 1)
+                intercambiar(codigosOrd, j, j + 1)
+                intercambiar(titulosOrd, j, j + 1)
+                intercambiar(tiposOrd, j, j + 1)
+                intercambiar(generosOrd, j, j + 1)
+                intercambiar(clasificacionesOrd, j, j + 1)
+
+    print("REPORTE ORDENADO POR AÑO (DESCENDENTE)")
+    for i in range(len(codigosOrd)):
+        mostrarContenido(codigosOrd[i], titulosOrd[i], tiposOrd[i], generosOrd[i], aniosOrd[i], clasificacionesOrd[i])
+
+def reportePorGenero(codigos, titulos, tipos, generos, anios, clasificaciones):
+    generoBuscar = input("Ingrese genero a filtrar: ").lower()
+    while buscarElemento(generosPeliculas, generoBuscar) == -1 and buscarElemento(generosCanciones, generoBuscar) == -1:
+        generoBuscar = input("Genero invalido, reingrese: ").lower()
+    encontrados = 0
+    print("REPORTE FILTRADO POR GENERO")
+    for i in range(len(codigos)):
+        if generos[i] == generoBuscar:
+            mostrarContenido(codigos[i], titulos[i], tipos[i], generos[i], anios[i], clasificaciones[i])
+            encontrados += 1
+    if encontrados == 0:
+        print("No se encontraron contenidos para ese genero")
+
+def contadorPorTipo(tipos):
+    cantPeliculas = 0
+    cantCanciones = 0
+    for i in range(len(tipos)):
+        if tipos[i] == "pelicula":
+            cantPeliculas += 1
+        elif tipos[i] == "cancion":
+            cantCanciones += 1
+    print("Cantidad de peliculas:", cantPeliculas)
+    print("Cantidad de canciones:", cantCanciones)
