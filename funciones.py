@@ -163,12 +163,20 @@ def buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
         mostrarContenido(codigos[pos], titulos[pos], tipos[pos], generos[pos], anios[pos], clasificaciones[pos])
 
 def reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones):
-    codigosOrd = codigos[:]
-    titulosOrd = titulos[:]
-    tiposOrd = tipos[:]
-    generosOrd = generos[:]
-    aniosOrd = anios[:]
-    clasificacionesOrd = clasificaciones[:]
+    codigosOrd = []
+    titulosOrd = []
+    tiposOrd = []
+    generosOrd = []
+    aniosOrd = []
+    clasificacionesOrd = []
+
+    for i in range(len(codigos)):
+        codigosOrd.append(codigos[i])
+        titulosOrd.append(titulos[i])
+        tiposOrd.append(tipos[i])
+        generosOrd.append(generos[i])
+        aniosOrd.append(anios[i])
+        clasificacionesOrd.append(clasificaciones[i])
 
     for i in range(len(aniosOrd) - 1):
         for j in range(i + 1, len(aniosOrd)):
@@ -196,12 +204,20 @@ def reportePorTipo(codigos, titulos, tipos, generos, anios, clasificaciones):
         print("No se encontraron contenidos para el tipo seleccionado")
 
 def reportePorAnioDesc(codigos, titulos, tipos, generos, anios, clasificaciones):
-    codigosOrd = codigos[:]
-    titulosOrd = titulos[:]
-    tiposOrd = tipos[:]
-    generosOrd = generos[:]
-    aniosOrd = anios[:]
-    clasificacionesOrd = clasificaciones[:]
+    codigosOrd = []
+    titulosOrd = []
+    tiposOrd = []
+    generosOrd = []
+    aniosOrd = []
+    clasificacionesOrd = []
+
+    for i in range(len(codigos)):
+        codigosOrd.append(codigos[i])
+        titulosOrd.append(titulos[i])
+        tiposOrd.append(tipos[i])
+        generosOrd.append(generos[i])
+        aniosOrd.append(anios[i])
+        clasificacionesOrd.append(clasificaciones[i])
 
     for i in range(len(aniosOrd) - 1):
         for j in range(len(aniosOrd) - 1 - i):
