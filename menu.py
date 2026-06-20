@@ -3,9 +3,11 @@ import funciones
 
 def opciones_menu():
     # Funcion que muestra las opciones del menu
-    print("=" * 60)
-    print("Bienvenido al menú de algoritmos. Escriba el número de la opción que desea ejecutar:")
-    print("=" * 60)
+    print("-" * 50)
+    print("                 MENU DE CONTENIDOS")
+    print("-" * 50)
+    print("Seleccione una opcion:")
+    print()
     print("1. Cargar nuevo contenido")
     print("2. Modificar contenido existente")
     print("3. Dar de baja contenido")
@@ -13,18 +15,22 @@ def opciones_menu():
     print("5. Buscar contenido por codigo")
     print("6. Mostrar reporte ordenado por año de lanzamiento")
     print("7. Mostrar reporte filtrado por tipo de contenido")
-    print("9. Reporte por año descendente")
-    print("10. Reporte por genero")
-    print("11. Contador por tipo")
-    print("12. Salir")
+    print("8. Reporte por año descendente")
+    print("9. Reporte por genero")
+    print("10. Contador por tipo")
+    print("11. Reporte matricial Tipo x Clasificacion")
+    print("12. Reporte estadístico general")
+    print("13. Reporte filtrado por tipo y año")
+    print("14. Salir")
+    print("-" * 50)
 
 def menu():
     # Funcion que permite seleccionar una opcion del menu
     opciones_menu()
     opcion = int(input("Opción: "))
     # Validar que la opcion elegida este dentro de los rangos permitidos
-    while opcion < 1 or opcion > 12:
-        print("Error, la opcion elegida debe estar entre 1 y 12")
+    while opcion < 1 or opcion > 14:
+        print("Error, la opcion elegida debe estar entre 1 y 14")
         opciones_menu()
         opcion = int(input("Seleccione una opcion"))
     return opcion
@@ -36,9 +42,9 @@ def main():
     tipos = ["pelicula", "pelicula", "cancion", "pelicula", "cancion", "pelicula"]
     generos = ["drama", "comedia", "reggaeton", "fantasia", "rock", "ciencia ficcion"]
     anios = [1985, 2001, 2017, 2009, 1975, 1995]
-    clasificaciones = ["ATP", "+13", "+16", "+18", "ATP", "ATP"]
+    clasificaciones = ["ATP", "+13", "ATP", "+18", "ATP", "ATP"]
     opcion = menu()    
-    while opcion != 12:
+    while opcion != 14:
         if opcion == 1:
             print("Dar de alta")
             # Invoco a la funcion del archivo funciones.py para dar de alta un nuevo contenido
@@ -66,16 +72,25 @@ def main():
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por tipo seleccionado
             tipoBuscar = funciones.pedirTipo()
             funciones.reporteyFiltrado(codigos, titulos, tipos, generos, anios, clasificaciones, "tipo", tipoBuscar)
-        elif opcion == 9:
+        elif opcion == 8:
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por año descendente
-            funciones.reportePorAnioDesc(codigos, titulos, tipos, generos, anios, clasificaciones, True)
-        elif opcion == 10:
+            funciones.reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones, True)
+        elif opcion == 9:
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por género
             generoBuscar = input("Ingrese genero: ").lower()
             funciones.reporteyFiltrado(codigos, titulos, tipos, generos, anios, clasificaciones, "genero", generoBuscar)
-        elif opcion == 11:
+        elif opcion == 10:
             # Invoco a la funcion del archivo funciones.py para contar el contenido por tipo
-            funciones.contadorPorTipo(tipos)
+            funciones.contadorPorTipo(tipos, True)
+        elif opcion == 11:
+            # Invoco a la funcion del archivo funciones.py para mostrar el reporte matricial
+            funciones.reporteMatricialTipoClasificacion(tipos, clasificaciones, True)
+        elif opcion == 12:
+            # Invoco a la funcion del archivo funciones.py para mostrar el reporte estadistico general
+            funciones.reporteEstadisticoGeneral(codigos, titulos, tipos, generos, anios, clasificaciones)
+        elif opcion == 13:
+            # Invoco a la funcion del archivo funciones.py para mostrar el reporte filtrado por tipo y rango de años
+            funciones.reporteFiltradoTipoAnio(codigos, titulos, tipos, generos, anios, clasificaciones)
         opcion = menu()
     # El usuario eligio salir, muestro mensaje de despedida
     print("Gracias por usar el programa")

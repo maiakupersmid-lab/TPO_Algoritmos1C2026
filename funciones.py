@@ -72,7 +72,7 @@ clasificacionesPeliculas = ["ATP", "+13", "+16", "+18"]
 
 def altaContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
     # Pido el codigo a registrar hasta que el usuario ingrese -1 para finalizar
-    cod = int(input("Ingrese codigo a registrar o -1 para finalizar: "))
+    cod = int(input("Ingrese codigo a registrar o -1 para volver al menu: "))
     while cod != -1:
         # Verificar que el codigo no exista y sea positivo
         while cod <= 0 or buscarEnLista(codigos, cod) != -1:
@@ -154,7 +154,6 @@ def buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones):
         mostrarContenido(codigos[pos], titulos[pos], tipos[pos], generos[pos], anios[pos], clasificaciones[pos])
 
 def reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones, descendente):
-
     """
     Funcion generalizada de reportePorAnio y el descendente, ahora con una bandera para identificar la opción elegida
     (ver el if del segundo for)
@@ -200,7 +199,6 @@ def reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones, des
 
 
 def reporteyFiltrado(codigos, titulos, tipos, generos, anios, clasificaciones, criterio, valor):
-    
     """
     Esta funcion se crea gracias a generalizar reportePorTipo y reportePorGenero, pero se agrega 2 parámetros para identificar
     la opción elegida por el usuario (tipo o género) y el valor de esa opcion elegida (pelicula o cancion / rock o pop o etc...)
@@ -220,13 +218,142 @@ def reporteyFiltrado(codigos, titulos, tipos, generos, anios, clasificaciones, c
     if encontrados == 0:
         print("No se encontraron contenidos")
 
-def contadorPorTipo(tipos):
+def contadorPorTipo(tipos, mostrar):
     cantPeliculas = 0
     cantCanciones = 0
+
     for i in range(len(tipos)):
         if tipos[i] == "pelicula":
             cantPeliculas += 1
         elif tipos[i] == "cancion":
             cantCanciones += 1
-    print("Cantidad de peliculas:", cantPeliculas)
-    print("Cantidad de canciones:", cantCanciones)
+
+    if mostrar:
+        print("Cantidad de peliculas:", cantPeliculas)
+        print("Cantidad de canciones:", cantCanciones)
+    else:
+        return cantPeliculas, cantCanciones
+
+def reporteMatricialTipoClasificacion(tipos, clasificaciones, mostrar):
+    matriz = [[0, 0, 0, 0], [0, 0, 0, 0]]
+
+    for i in range(len(tipos)):
+        if tipos[i] == "pelicula":
+            fila = 0
+        else:
+            fila = 1
+
+        columna = buscarEnLista(clasificacionesPeliculas, clasificaciones[i])
+        matriz[fila][columna] += 1
+
+    if mostrar:
+        print("REPORTE MATRICIAL TIPO x CLASIFICACIÓN")
+        print("             ATP   +13   +16   +18")
+        print("Película     ", end="")
+        for j in range(4):
+            print(f"{matriz[0][j]:5}", end="")
+        print()
+        print("Canción      ", end="")
+        for j in range(4):
+            print(f"{matriz[1][j]:5}", end="")
+        print()
+    else:
+        return matriz
+
+def buscarExtremosAnio(anios):
+    posAntiguo = 0
+    posReciente = 0
+
+    for i in range(1, len(anios)):
+        if anios[i] < anios[posAntiguo]:
+            posAntiguo = i
+        if anios[i] > anios[posReciente]:
+            posReciente = i
+    return posAntiguo, posReciente
+
+def generoMasUsado(generos):
+    listaGeneros = []
+    
+    for i in range(len(generos)):
+        pos = -1
+        for j in range(len(listaGeneros)):
+            if listaGeneros[j][0] == generos[i]:
+                pos = j
+        if pos != -1:
+            listaGeneros[pos][1] += 1
+        else:
+            listaGeneros.append([generos[i], 1])
+
+    genero = listaGeneros[0][0]
+    cantidad = listaGeneros[0][1]
+    for i in range(len(listaGeneros)):
+        if listaGeneros[i][1] > cantidad:
+            genero = listaGeneros[i][0]
+            cantidad = listaGeneros[i][1]
+
+    return genero
+
+def reporteEstadisticoGeneral(codigos, titulos, tipos, generos, anios, clasificaciones):
+    if len(codigos) == 0:
+        print("No existen contenidos cargados")
+        return
+
+    peliculas, canciones = contadorPorTipo(tipos, False)
+    posAntiguo, posReciente = buscarExtremosAnio(anios)
+    genero = generoMasUsado(generos)
+    matriz = reporteMatricialTipoClasificacion(tipos, clasificaciones, False)
+
+    print("REPORTE ESTADÍSTICO GENERAL")
+    print("-" * 60)
+    print("Cantidad total de contenidos:", len(codigos))
+    print("Cantidad de películas:", peliculas)
+    print("Cantidad de canciones:", canciones)
+    print("-" * 60)
+    print("Contenido más antiguo:")
+    print("Título:", titulos[posAntiguo])
+    print("Año:", anios[posAntiguo])
+    print()
+    print("Contenido más reciente:")
+    print("Título:", titulos[posReciente])
+    print("Año:", anios[posReciente])
+    print("-" * 60)
+    print("Género más utilizado:")
+    print(genero)
+    print("-" * 60)
+    print("Cantidad por clasificación:")
+    print(f"{'Clasificación':<15}{'Cantidad'}")
+    print("-" * 30)
+    print(f"{'ATP':<15}{matriz[0][0] + matriz[1][0]}")
+    print(f"{'+13':<15}{matriz[0][1] + matriz[1][1]}")
+    print(f"{'+16':<15}{matriz[0][2] + matriz[1][2]}")
+    print(f"{'+18':<15}{matriz[0][3] + matriz[1][3]}")
+
+def reporteFiltradoTipoAnio(codigos, titulos, tipos, generos, anios, clasificaciones):
+    tipoBuscar = pedirTipo()
+    anioDesde = pedirAnio()
+    anioHasta = pedirAnio()
+    while anioDesde > anioHasta:
+        print("El año desde no puede ser mayor al año hasta")
+        anioDesde = pedirAnio()
+        anioHasta = pedirAnio()
+
+    encontrados = 0
+
+    print("REPORTE FILTRADO")
+    print("Tipo seleccionado:", tipoBuscar)
+    print("Año desde:", anioDesde)
+    print("Año hasta:", anioHasta)
+    print("-" * 80)
+    print(f"{'Código':<8}{'Título':<20}{'Tipo':<12}{'Género':<18}{'Año':<8}{'Clasif.':<10}")
+    print("-" * 80)
+
+    for i in range(len(codigos)):
+        if tipos[i] == tipoBuscar and anioDesde <= anios[i] <= anioHasta:
+            print(f"{codigos[i]:<8}{titulos[i]:<20}{tipos[i]:<12}{generos[i]:<18}{anios[i]:<8}{clasificaciones[i]:<10}")
+            encontrados += 1
+    print("-" * 80)
+
+    if encontrados == 0:
+        print("No existen contenidos con esos filtros")
+    else:
+        print("Total encontrados:", encontrados)
