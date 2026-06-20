@@ -12,7 +12,7 @@ def opciones_menu():
     print("4. Mostrar listado general de contenido")
     print("5. Buscar contenido por codigo")
     print("6. Mostrar reporte ordenado por año de lanzamiento")
-    print("7. Mostrar reporte filtrado por tipo de conenido")
+    print("7. Mostrar reporte filtrado por tipo de contenido")
     print("9. Reporte por año descendente")
     print("10. Reporte por genero")
     print("11. Contador por tipo")
@@ -61,17 +61,18 @@ def main():
             funciones.buscarContenido(codigos, titulos, tipos, generos, anios, clasificaciones)
         elif opcion == 6:
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido ordenado por año
-            funciones.reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones)
+            funciones.reportePorAnio(codigos, titulos, tipos, generos, anios, clasificaciones, False)
         elif opcion == 7:
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por tipo seleccionado
-            print("Reporte filtrado por tipo")
-            funciones.reportePorTipo(codigos, titulos, tipos, generos, anios, clasificaciones)
+            tipoBuscar = funciones.pedirTipo()
+            funciones.reporteyFiltrado(codigos, titulos, tipos, generos, anios, clasificaciones, "tipo", tipoBuscar)
         elif opcion == 9:
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por año descendente
-            funciones.reportePorAnioDesc(codigos, titulos, tipos, generos, anios, clasificaciones)
+            funciones.reportePorAnioDesc(codigos, titulos, tipos, generos, anios, clasificaciones, True)
         elif opcion == 10:
             # Invoco a la funcion del archivo funciones.py para mostrar el contenido por género
-            funciones.reportePorGenero(codigos, titulos, tipos, generos, anios, clasificaciones)
+            generoBuscar = input("Ingrese genero: ").lower()
+            funciones.reporteyFiltrado(codigos, titulos, tipos, generos, anios, clasificaciones, "genero", generoBuscar)
         elif opcion == 11:
             # Invoco a la funcion del archivo funciones.py para contar el contenido por tipo
             funciones.contadorPorTipo(tipos)
